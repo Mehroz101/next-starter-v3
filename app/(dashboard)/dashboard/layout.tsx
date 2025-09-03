@@ -15,11 +15,11 @@ export default function DashboardRootLayout({
   };
   return (
     <html lang="en">
-      <body>
-        <div className="flex h-screen bg-gray-100">
+      <body  >
+        <div className="flex h-screen">
           <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
 
-          <div className="flex flex-col flex-1 lg:ml-64">
+          <div className="flex flex-col flex-1 ">
             <Navbar toggleSidebar={toggleSidebar} />
 
             <main className="pt-16 h-full overflow-y-auto">

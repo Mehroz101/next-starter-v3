@@ -89,7 +89,7 @@ export const Sidebar = ({ isOpen, toggleSidebar }: { isOpen: boolean; toggleSide
       {/* Mobile overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-gray-900 bg-opacity-50 z-20 lg:hidden"
+          className="fixed inset-0  bg-opacity-50 z-20 lg:hidden"
           onClick={toggleSidebar}
         ></div>
       )}
@@ -114,7 +114,7 @@ export const Sidebar = ({ isOpen, toggleSidebar }: { isOpen: boolean; toggleSide
           </button>
         </div>
 
-        <div className="h-full overflow-y-auto py-4 px-3">
+        <div className=" overflow-y-auto py-4 px-3">
           <ul className="space-y-2">
             {menuItems.map((item) => (
               <li key={item.name}>
