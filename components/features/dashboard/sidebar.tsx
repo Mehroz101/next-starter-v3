@@ -97,10 +97,10 @@ export const Sidebar = ({ isOpen, toggleSidebar }: { isOpen: boolean; toggleSide
       {/* Sidebar */}
       <div className={`
         fixed inset-y-0 left-0 z-30 w-64 bg-gray-900 transform transition-transform duration-300 ease-in-out
-        lg:translate-x-0 lg:static lg:inset-0
+        lg:translate-x-0 lg:static lg:inset-0 
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
-        <div className="flex items-center justify-between h-16 px-4 bg-gray-800">
+        <div className="flex items-center justify-between h-16 px-4 bg-gray-800 ">
           <Link href="/dashboard" className="text-xl font-bold text-white">
             Dashboard
           </Link>
@@ -114,7 +114,7 @@ export const Sidebar = ({ isOpen, toggleSidebar }: { isOpen: boolean; toggleSide
           </button>
         </div>
 
-        <div className=" overflow-y-auto py-4 px-3">
+        <div className="h-[93%] overflow-y-auto py-4 px-3 scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-100 hover:scrollbar-thumb-slate-400 ">
           <ul className="space-y-2">
             {menuItems.map((item) => (
               <li key={item.name}>
@@ -122,7 +122,7 @@ export const Sidebar = ({ isOpen, toggleSidebar }: { isOpen: boolean; toggleSide
                   href={item.href}
                   className={`flex items-center p-2 text-base font-normal rounded-lg transition-colors duration-200 group
                     ${pathname === item.href
-                      ? 'text-white bg-blue-700'
+                      ? 'text-white bg-primary'
                       : 'text-gray-300 hover:bg-gray-700 hover:text-white'
                     }`}
                 >

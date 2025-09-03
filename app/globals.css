@@ -1,2 +1,81 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #1447e6;
+  --color-secondary: #2563EB;
+  --color-accent: #F59E0B;
+  --color-muted: #E5E7EB;
+}
+
+.sidebar-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+/* Custom scrollbar styles for the entire application */
+:root {
+  --scrollbar-width: 8px;
+  --scrollbar-thumb-color: #555555;
+  --scrollbar-thumb-hover-color: #94a3b8;
+  --scrollbar-track-color: #f1f5f9;
+}
+
+/* For Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-color);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-color);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover-color);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+}
+
+/* Optional: Smooth scrolling for the entire app */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Optional: Custom scrollbar for specific elements with class 'custom-scroll' */
+.custom-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-color);
+  border-radius: 10px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-color);
+  border-radius: 10px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover-color);
+}
