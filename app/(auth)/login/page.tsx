@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import authService from '@/services/authService';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +12,7 @@ const LoginPage = () => {
     password: '',
     rememberMe: false
   });
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -19,10 +22,14 @@ const LoginPage = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Login form submitted:', formData);
+    try {
+      await authService.login({ email: formData.email, password: formData.password });
+      router.push("/dashboard");
+    } catch (err: any) {
+      console.error(err);
+    }
   };
 
   return (
