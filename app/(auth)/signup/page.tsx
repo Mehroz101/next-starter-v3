@@ -3,17 +3,23 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import InputBox from '@/components/common/inputBox';
+import { useAuth } from '@/hooks/useAuth';
+import { Signup } from '@/types/Auth';
+import LoadingIcon from '@/components/ui/svg/loadingIcon';
+import ErrorBox from '@/components/common/errorBox';
+import Button from '@/components/common/Button';
 
 const SignupPage = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Signup>({
     firstName: '',
     lastName: '',
     email: '',
     password: '',
     confirmPassword: '',
-    agreeToTerms: false
   });
-
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const { signupMutation, error, loading } = useAuth()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFormData(prevState => ({
@@ -23,9 +29,10 @@ const SignupPage = () => {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
+
     e.preventDefault();
     // Handle signup logic here
-    console.log('Signup form submitted:', formData);
+    signupMutation.mutate(formData)
   };
 
   return (
@@ -42,99 +49,69 @@ const SignupPage = () => {
             <h1 className="text-3xl font-bold text-gray-900 mt-6">Create your account</h1>
             <p className="text-gray-600 mt-2">Join us today and get started</p>
           </div>
-
+          {error &&
+            <ErrorBox error={error} />
+          }
           <div className="bg-white rounded-2xl shadow-lg p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
-                    First name
-                  </label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300"
-                    placeholder="John"
-                  />
-                </div>
+                <InputBox
+                  label="First name"
+                  type="text"
+                  name="firstName"
+                  required={true}
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  placeHolder="John"
+                />
 
                 <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
-                    Last name
-                  </label>
-                  <input
+                  <InputBox
+                    label="Last name"
                     type="text"
-                    id="lastName"
                     name="lastName"
+                    required={true}
                     value={formData.lastName}
                     onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300"
-                    placeholder="Doe"
+                    placeHolder="Doe"
                   />
+
                 </div>
               </div>
-
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  Email address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300"
-                  placeholder="john@example.com"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300"
-                  placeholder="Create a password"
-                />
-                <p className="text-xs text-gray-500 mt-2">Must be at least 8 characters</p>
-              </div>
-
-              <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
-                  Confirm password
-                </label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300"
-                  placeholder="Confirm your password"
-                />
-              </div>
-
+              <InputBox
+                label="Email address"
+                type="email"
+                name="email"
+                required={true}
+                value={formData.email}
+                onChange={handleChange}
+                placeHolder="john@example.com"
+              />
+              <InputBox
+                label="Password"
+                type="password"
+                name="password"
+                required={true}
+                value={formData.password}
+                onChange={handleChange}
+                placeHolder="Create a password"
+              />
+              <InputBox
+                label="Confirm password"
+                type="password"
+                name="confirmPassword"
+                required={true}
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                placeHolder="Confirm your password"
+              />
               <div className="flex items-center">
                 <input
                   type="checkbox"
                   id="agreeToTerms"
                   name="agreeToTerms"
-                  checked={formData.agreeToTerms}
-                  onChange={handleChange}
+                  checked={acceptTerms}
+                  onChange={(e) => setAcceptTerms(e.target.checked)}
                   className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                 />
                 <label htmlFor="agreeToTerms" className="ml-2 block text-sm text-gray-700">
@@ -144,13 +121,7 @@ const SignupPage = () => {
                   </Link>
                 </label>
               </div>
-
-              <button
-                type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl"
-              >
-                Create account
-              </button>
+              <Button label="Create Account" loading={loading} />
             </form>
 
             <div className="mt-6">

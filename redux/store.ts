@@ -8,7 +8,6 @@ export const store = configureStore({
     counter: counterReducer,
     user: userReducer
   },
-  devTools: process.env.NODE_ENV !== 'production',
 });
 
 // Type helpers (useful in TS)

@@ -8,6 +8,7 @@ interface UserState {
   } | null;
   token: string | null;
   loading: boolean;
+  success: boolean;
   error: string | null;
 }
 const initialState: UserState = {
@@ -15,6 +16,7 @@ const initialState: UserState = {
   token: null,
   loading: false,
   error: null,
+  success: false,
 }
 
 
@@ -24,22 +26,27 @@ const userSlice = createSlice({
   reducers: {
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
+      state.error = null;
+      state.success = false;
     },
     setError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
+      state.loading = false;
+      state.success = false;
     },
     setUser: (state, action: PayloadAction<{ user: UserState["user"], token: UserState["token"] }>) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.error = null;
       state.loading = false;
+      state.success = true;
     },
     logout: (state) => {
       state.user = null;
       state.token = null;
       state.error = null;
       state.loading = false;
-
+      state.success = true;
     }
   },
 });
