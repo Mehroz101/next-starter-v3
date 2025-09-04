@@ -3,8 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import authService from '@/services/authService';
+import { useAuth } from '@/hooks/useAuth';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -12,7 +11,7 @@ const LoginPage = () => {
     password: '',
     rememberMe: false
   });
-  const router = useRouter();
+  const { loginMutation, loading, error } = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -24,12 +23,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      await authService.login({ email: formData.email, password: formData.password });
-      router.push("/dashboard");
-    } catch (err: any) {
-      console.error(err);
-    }
+    loginMutation.mutate({ email: formData.email, password: formData.password });
   };
 
   return (
@@ -103,6 +97,7 @@ const LoginPage = () => {
               <button
                 type="submit"
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl"
+                disabled={loading}
               >
                 Sign in
               </button>
