@@ -1,3 +1,4 @@
+import './globals.css';
 
 const Custom404 = () => {
 
