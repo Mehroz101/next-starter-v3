@@ -1,5 +1,5 @@
-"use client";
 
+import Link from "next/link";
 import React from "react";
 
 const FeaturesSection: React.FC = () => {
@@ -78,12 +78,12 @@ const FeaturesSection: React.FC = () => {
 
                 {/* Learn more link */}
                 <div className="mt-6 text-center">
-                  <a href="#" className="inline-flex items-center text-blue-600 font-medium group-hover:text-blue-700 transition-colors duration-300">
+                  <Link href="#" className="inline-flex items-center text-blue-600 font-medium group-hover:text-blue-700 transition-colors duration-300">
                     Learn more
                     <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                  </a>
+                  </Link>
                 </div>
               </div>
 

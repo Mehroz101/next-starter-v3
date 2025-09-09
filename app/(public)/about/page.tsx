@@ -1,7 +1,10 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-
+export const metadata = {
+  title: "YourBrand – All-in-One Finance Platform",
+  description: "this is the about page .",
+};
 const AboutPage = () => {
   const teamMembers = [
     {
@@ -45,7 +48,7 @@ const AboutPage = () => {
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">About Our Company</h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We're a team of passionate individuals dedicated to building products that make a difference in people's lives.
+              We&apos;re a team of passionate individuals dedicated to building products that make a difference in people&apos;s lives.
             </p>
           </div>
 
@@ -66,11 +69,11 @@ const AboutPage = () => {
               <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Story</h2>
               <div className="space-y-4 text-gray-600">
                 <p>
-                  Founded in 2018, our company began with a simple mission: to create tools that empower people to be more productive and creative. 
+                  Founded in 2018, our company began with a simple mission: to create tools that empower people to be more productive and creative.
                   What started as a small project between friends has grown into a platform serving thousands of users worldwide.
                 </p>
                 <p>
-                  We believe that technology should work for people, not the other way around. That's why we focus on creating intuitive, 
+                  We believe that technology should work for people, not the other way around. That&apos;s why we focus on creating intuitive,
                   user-friendly solutions that solve real problems.
                 </p>
                 <p>
@@ -110,7 +113,7 @@ const AboutPage = () => {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-4">Trust & Security</h3>
               <p className="text-gray-600">
-                We prioritize the security and privacy of our users' data above all else.
+                We prioritize the security and privacy of our users&apos; data above all else.
               </p>
             </div>
 

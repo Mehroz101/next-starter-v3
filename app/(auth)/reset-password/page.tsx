@@ -1,15 +1,25 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import InputBox from '@/components/common/inputBox';
+import Button from '@/components/common/Button';
+import { useAuth } from '@/hooks/useAuth';
+import { useSearchParams } from 'next/navigation';
+import ErrorBox from '@/components/common/errorBox';
 
 const ResetPasswordPage = () => {
+  const searchParams = useSearchParams();
+  const token = searchParams.get('token');
+  const expires = searchParams.get('expires');
   const [formData, setFormData] = useState({
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    token: token || ''
   });
-  const [isReset, setIsReset] = useState(false);
+  const [isExpired, setIsExpired] = useState(false);
+  const { resetPasswordMutation, error, loading, success } = useAuth()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -22,11 +32,22 @@ const ResetPasswordPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle reset password logic here
-    console.log('Reset password form submitted:', formData);
-    setIsReset(true);
+    resetPasswordMutation.mutate(formData)
   };
+  useEffect(() => {
+    if (expires && expires !== '') {
+      const expiryTime = Number(expires) * 1000;
+      if (Date.now() > expiryTime) {
+        setIsExpired(true);
+      }
+    }
+    else {
+      setIsExpired(true);
 
-  if (isReset) {
+    }
+  }, [expires, token]);
+
+  if (success) {
     return (
       <div className="min-h-screen flex">
         <div className="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
@@ -75,74 +96,90 @@ const ResetPasswordPage = () => {
     );
   }
 
+
   return (
+
     <div className="min-h-screen flex">
       {/* Left side - Form */}
       <div className="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
         <div className="w-full max-w-md">
-          <div className="text-center mb-8">
-            <Link href="/" className="inline-block">
-              <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                YourBrand
-              </span>
-            </Link>
-            <h1 className="text-3xl font-bold text-gray-900 mt-6">Reset password</h1>
-            <p className="text-gray-600 mt-2">Create a new password for your account</p>
-          </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-                  New password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300"
-                  placeholder="Enter new password"
-                />
-                <p className="text-xs text-gray-500 mt-2">Must be at least 8 characters</p>
-              </div>
-
-              <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
-                  Confirm new password
-                </label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300"
-                  placeholder="Confirm new password"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl"
-              >
-                Reset password
-              </button>
-            </form>
-
-            <div className="mt-6 text-center">
-              <p className="text-gray-600">
-                Remember your password?{' '}
-                <Link href="/login" className="text-blue-600 hover:text-blue-500 font-semibold">
-                  Sign in
+          {
+            isExpired ? (
+              <div className="bg-white rounded-2xl shadow-lg p-8 text-center" >
+                <h2 className="text-2xl font-bold text-red-600 mb-4">Reset link expired or wrong</h2>
+                <p className="text-gray-600 mb-6">
+                  This reset password link has expired or wrong. Please request a new one.
+                </p>
+                <Link
+                  href="/forgot-password"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl block text-center"
+                >
+                  Request new link
                 </Link>
-              </p>
-            </div>
-          </div>
+              </div >
+            ) : (
+              <div>
+
+                <div className="text-center mb-8">
+                  <Link href="/" className="inline-block">
+                    <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                      YourBrand
+                    </span>
+                  </Link>
+                  <h1 className="text-3xl font-bold text-gray-900 mt-6">Reset password</h1>
+                  <p className="text-gray-600 mt-2">Create a new password for your account</p>
+                </div>
+                {error && (
+                  <ErrorBox error={error} />
+                )}
+                <div className="bg-white rounded-2xl shadow-lg p-8">
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
+
+                      <InputBox
+                        label="Password"
+                        type="password"
+                        name="password"
+                        required={true}
+                        value={formData.password}
+                        onChange={handleChange}
+                        placeHolder="Create new password"
+                      />
+
+                    </div>
+
+                    <InputBox
+                      label="Confirm password"
+                      type="password"
+                      name="confirmPassword"
+                      required={true}
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                      placeHolder="Confirm your password"
+                    />
+                    <p className="text-gray-500 text-sm mt-2">
+                      Your password must be at least 8 characters long and include a mix of letters, numbers, and special characters.
+                    </p>
+                    <Button label="Reset password" loading={loading} disabled={formData.password !== formData.confirmPassword || formData.password === '' || formData.confirmPassword === '' || formData.password.length < 8} />
+
+                  </form>
+
+                  <div className="mt-6 text-center">
+                    <p className="text-gray-600">
+                      Remember your password?{' '}
+                      <Link href="/login" className="text-blue-600 hover:text-blue-500 font-semibold">
+                        Sign in
+                      </Link>
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            )}
+
         </div>
+
       </div>
 
       {/* Right side - Image */}

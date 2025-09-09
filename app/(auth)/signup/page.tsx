@@ -6,7 +6,6 @@ import Image from 'next/image';
 import InputBox from '@/components/common/inputBox';
 import { useAuth } from '@/hooks/useAuth';
 import { Signup } from '@/types/Auth';
-import LoadingIcon from '@/components/ui/svg/loadingIcon';
 import ErrorBox from '@/components/common/errorBox';
 import Button from '@/components/common/Button';
 

@@ -1,9 +1,22 @@
 import type { NextConfig } from "next";
+import bundleAnalyzer from "@next/bundle-analyzer";
 
-const nextConfig: NextConfig = {
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
+const nextConfig: NextConfig = withBundleAnalyzer({
   images: {
-    domains: ['www.geckoboard.com', 'images.unsplash.com'],
+    remotePatterns: [{
+      protocol: "https",
+      hostname: "www.geckoboard.com",
+    },
+    {
+      protocol: "https",
+      hostname: "images.unsplash.com",
+    },],
   },
-};
+  reactStrictMode: true,
+});
 
 export default nextConfig;

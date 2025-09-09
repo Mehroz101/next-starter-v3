@@ -6,7 +6,6 @@ import Image from 'next/image';
 import InputBox from '@/components/common/inputBox';
 import ErrorBox from '@/components/common/errorBox';
 import { useAuth } from '@/hooks/useAuth';
-import LoadingIcon from '@/components/ui/svg/loadingIcon';
 import Button from '@/components/common/Button';
 
 const ForgotPasswordPage = () => {
@@ -46,11 +45,11 @@ const ForgotPasswordPage = () => {
               </div>
 
               <p className="text-gray-600 mb-6">
-                We've sent a password reset link to <strong>{email}</strong>. Please check your inbox and follow the instructions.
+                We&apos;ve sent a password reset link to <strong>{email}</strong>. Please check your inbox and follow the instructions.
               </p>
 
               <div className="text-sm text-gray-500 mb-6">
-                Didn't receive the email? Check your spam folder or{' '}
+                Didn&apos;t receive the email? Check your spam folder or{' '}
                 <button
                   onClick={() => setIsSubmitted(false)}
                   className="text-blue-600 hover:text-blue-500 font-semibold"
@@ -140,7 +139,7 @@ const ForgotPasswordPage = () => {
           <div className="text-white text-center">
             <h2 className="text-4xl font-bold mb-6">Need help with your password?</h2>
             <p className="text-xl opacity-90">
-              We'll help you reset it and get back into your account in no time.
+              We&apos;ll help you reset it and get back into your account in no time.
             </p>
           </div>
         </div>

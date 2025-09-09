@@ -1,4 +1,3 @@
-"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -11,7 +10,7 @@ const AboutSection: React.FC = () => {
         <div className="absolute top-20 -left-20 w-80 h-80 bg-blue-100 rounded-full blur-3xl opacity-30"></div>
         <div className="absolute bottom-10 -right-20 w-96 h-96 bg-indigo-100 rounded-full blur-3xl opacity-30"></div>
       </div>
-      
+
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
           {/* Left Image */}
@@ -26,7 +25,7 @@ const AboutSection: React.FC = () => {
                   className="rounded-2xl object-cover w-full h-full"
                 />
               </div>
-              
+
               {/* Floating stats card */}
               <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl border border-gray-100">
                 <div className="text-center">
@@ -35,7 +34,7 @@ const AboutSection: React.FC = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* Decorative elements */}
             <div className="absolute -z-10 -top-6 -left-6 w-32 h-32 bg-blue-200 rounded-full blur-2xl opacity-50"></div>
             <div className="absolute -z-10 -bottom-6 -right-6 w-24 h-24 bg-indigo-200 rounded-full blur-2xl opacity-50"></div>
@@ -48,16 +47,16 @@ const AboutSection: React.FC = () => {
                 About Our Platform
               </span>
             </div>
-            
+
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
               Built for developers, <span className="text-blue-600">by developers</span>
             </h2>
-            
+
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              We help developers and teams build powerful applications faster. With modern tech 
+              We help developers and teams build powerful applications faster. With modern tech
               stacks and elegant UI, our goal is to save you time and let you focus on innovation.
             </p>
-            
+
             <div className="grid grid-cols-2 gap-6 mb-10">
               <div className="flex items-start gap-3">
                 <div className="mt-1 bg-blue-100 p-2 rounded-lg">
@@ -70,7 +69,7 @@ const AboutSection: React.FC = () => {
                   <p className="text-gray-600 text-sm">Next.js, Tailwind, TypeScript</p>
                 </div>
               </div>
-              
+
               <div className="flex items-start gap-3">
                 <div className="mt-1 bg-blue-100 p-2 rounded-lg">
                   <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,7 +81,7 @@ const AboutSection: React.FC = () => {
                   <p className="text-gray-600 text-sm">Works on all devices</p>
                 </div>
               </div>
-              
+
               <div className="flex items-start gap-3">
                 <div className="mt-1 bg-blue-100 p-2 rounded-lg">
                   <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,7 +93,7 @@ const AboutSection: React.FC = () => {
                   <p className="text-gray-600 text-sm">Easy to modify and extend</p>
                 </div>
               </div>
-              
+
               <div className="flex items-start gap-3">
                 <div className="mt-1 bg-blue-100 p-2 rounded-lg">
                   <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -107,12 +106,12 @@ const AboutSection: React.FC = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="flex flex-col sm:flex-row gap-4">
               <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-xl transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                 Learn More
               </button>
-              
+
               <button className="border border-gray-300 hover:border-blue-400 text-gray-700 hover:text-blue-700 font-semibold py-3 px-8 rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
                 <span>View Demo</span>
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -53,9 +53,7 @@ const Navbar: React.FC = () => {
             <NavLink href="/help">Help</NavLink>
             <Link href="/login" className={`bg-black hover:bg-gray-800 text-white font-semibold py-2 px-6
                rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl`}>Login</Link>
-            {/* <CustomButton>
-              Get started
-            </CustomButton> */}
+
           </div>
 
           {/* Get started button visible on mobile */}
@@ -119,7 +117,6 @@ const MobileNavLink: React.FC<{
   <Link
     href={href}
     className="text-gray-700 hover:text-black font-semibold py-3 px-4 rounded-lg hover:bg-gray-50 transition-all duration-200 block"
-    onClick={onClick}
   >
     {children}
   </Link>

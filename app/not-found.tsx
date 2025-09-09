@@ -1,5 +1,3 @@
-"use client";
-
 
 const Custom404 = () => {
 
@@ -25,7 +23,7 @@ const Custom404 = () => {
         </h1>
 
         <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-          Sorry, we couldn't find the page you're looking for. The page might have been moved, deleted, or the URL might be incorrect.
+          Sorry, we couldn&apos;t find the page you&apos;re looking for. The page might have been moved, deleted, or the URL might be incorrect.
         </p>
 
         {/* Illustration */}

@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { useAuth } from '@/hooks/useAuth';
 import ErrorBox from '@/components/common/errorBox';
 import InputBox from '@/components/common/inputBox';
-import LoadingIcon from '@/components/ui/svg/loadingIcon';
 import Button from '@/components/common/Button';
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -126,7 +125,7 @@ const LoginPage = () => {
 
             <div className="mt-6 text-center">
               <p className="text-gray-600">
-                Don't have an account?{' '}
+                Don&apos;t have an account?{' '}
                 <Link href="/signup" className="text-blue-600 hover:text-blue-500 font-semibold">
                   Sign up
                 </Link>

@@ -10,7 +10,7 @@ export default function DashboardNotFound() {
           <div className="text-9xl font-bold text-gray-300">404</div>
           <h1 className="text-3xl font-bold text-gray-900 mt-4">Page Not Found</h1>
           <p className="text-gray-600 mt-2 max-w-md mx-auto">
-            Sorry, we couldn't find the dashboard page you're looking for.
+            Sorry, we couldn&apos;t find the dashboard page you&apos;re looking for.
           </p>
         </div>
 

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 // Navbar component
 export const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
@@ -80,18 +81,18 @@ export const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
                 </div>
                 <ul className="py-1" aria-labelledby="dropdown">
                   <li>
-                    <a href="/dashboard/profile" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                    <Link href="/dashboard/profile" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Profile</Link>
                   </li>
                   <li>
-                    <a href="/dashboard/settings" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                    <Link href="/dashboard/settings" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Settings</Link>
                   </li>
                   <li>
-                    <a href="/dashboard/billing" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Billing</a>
+                    <Link href="/dashboard/billing" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Billing</Link>
                   </li>
                 </ul>
                 <ul className="py-1">
                   <li>
-                    <a href="/logout" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Sign out</a>
+                    <Link href="/logout" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Sign out</Link>
                   </li>
                 </ul>
               </div>
