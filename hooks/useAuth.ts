@@ -3,27 +3,36 @@ import { logout, setError, setLoading, setUser } from "@/redux/slices/userSlice"
 import { RootState } from "@/redux/store";
 import authService from "@/services/authService";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 
 
 export const useAuth = () => {
   const dispatch = useDispatch();
-  const { token, user, loading, error, success } = useSelector((state: RootState) => state.user);
+  const router = useRouter()
+  const { token, user, loading, error, success, isAuthenticated } = useSelector((state: RootState) => state.user);
   const queryClient = useQueryClient();
   let timer: ReturnType<typeof setTimeout>;
 
   const loginMutation = useMutation({
     mutationFn: authService.login,
     onMutate: () => dispatch(setLoading(true)),
-    onSuccess: (data) => dispatch(setUser({ token: data.token, user: data.user })),
-    onError: (error: any) => dispatch(setError(error?.response?.data?.message || error.message)),
+    onSuccess: (data) => {
+      console.log("data", data)
+      dispatch(setUser({ token: data.accessToken, user: data.user }))
+      router.push("/")
+    },
+    onError: (error: any) => {
+      dispatch(setError(error?.response?.data?.message || error.message))
+    },
   })
   const signupMutation = useMutation({
     mutationFn: authService.signup,
     onMutate: () => dispatch(setLoading(true)),
     onSuccess: (data) => {
-      dispatch(setUser({ token: data.token, user: data.user }));
+      console.log("data", data)
+      dispatch(setUser({ token: data.accessToken, user: data.user }));
     },
     onError: (err: any) => {
       dispatch(setError(err?.response?.data?.message || err.message));
@@ -64,24 +73,25 @@ export const useAuth = () => {
       dispatch(setUser({ token, user: meQueryData.user }));
     }
   }, [isSuccess, meQueryData, dispatch, token]);
+
   useEffect(() => {
     if (error) {
       timer = setTimeout(() => {
         dispatch(setError(""));
-      }, 4000);
+      }, 5000);
     }
-
     return () => {
-      if (timer) clearTimeout(timer);
+      if (timer) {
+        clearTimeout(timer);
+      }
     };
-
   }, [error, dispatch]);
 
   const logoutUser = () => {
     dispatch(logout());
     queryClient.removeQueries({ queryKey: ["me"] });
   };
-  return { token, user, loading, error, success, loginMutation, signupMutation, forgotPasswordMutation, resetPasswordMutation, meQuery: meQueryData, logoutUser };
+  return { token, user, loading, error, success, isAuthenticated, loginMutation, signupMutation, forgotPasswordMutation, resetPasswordMutation, meQuery: meQueryData, logoutUser };
 
 
 

@@ -17,6 +17,14 @@ const nextConfig: NextConfig = withBundleAnalyzer({
     },],
   },
   reactStrictMode: true,
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",          // when frontend calls /api/*
+        destination: "http://localhost:5000/api/:path*", // forward to backend
+      },
+    ];
+  },
 });
 
 export default nextConfig;

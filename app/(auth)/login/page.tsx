@@ -25,7 +25,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    console.log("Form submit prevented"); // should log
     loginMutation.mutate(formData);
   };
 
@@ -89,7 +89,7 @@ const LoginPage = () => {
                   Remember me
                 </label>
               </div>
-              <Button label="Login" loading={loading} />
+              <Button label="Login" type='submit' loading={loading} />
             </form>
 
             <div className="mt-6">

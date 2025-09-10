@@ -6,7 +6,8 @@ export const config = {
 
 export function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
-  const token = req.cookies.get('authToken')?.value || 'token';
+  console.log(" middleware", req.cookies.get("refreshToken")?.value);
+  const token = req.cookies.get('refreshToken')?.value;
 
   if (!token) {
     url.pathname = '/login';

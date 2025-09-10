@@ -1,21 +1,35 @@
-// app/provider.tsx
 "use client";
 
-import React from "react";
-import { Provider as ReduxProvider } from "react-redux";
+import React, { useEffect } from "react";
+import { Provider as ReduxProvider, useDispatch } from "react-redux";
 import { store } from "@/redux/store";
 import QueryProvider from "@/query/Provider";
+import { useAuth } from "@/hooks/useAuth";
+import { setUser } from "@/redux/slices/userSlice";
 
-export default function Providers({ children }: { children: React.ReactNode }) {
-  // quick debug visible in browser console
-  if (typeof window !== "undefined") {
-    // eslint-disable-next-line no-console
-    console.log("[Providers] mounted (client). store present:", !!store);
-  }
+// This runs only inside ReduxProvider
+function AuthInitializer() {
+  const { isAuthenticated } = useAuth()
+  const dispatch = useDispatch()
+  useEffect(() => {
 
+    const token = localStorage.getItem("accessToken")
+    if (!isAuthenticated && token) {
+      const user = JSON.parse(localStorage.getItem("user") || "{}")
+      dispatch(setUser({ user, token }))
+    }
+  }, [])
+
+  return null
+}
+
+export default function Providers({ children }: { readonly children: React.ReactNode }) {
   return (
     <ReduxProvider store={store}>
-      <QueryProvider>{children}</QueryProvider>
+      <QueryProvider>
+        <AuthInitializer />
+        {children}
+      </QueryProvider>
     </ReduxProvider>
   );
 }

@@ -1,20 +1,36 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000/api",
-  withCredentials: true, // to send cookies
+  baseURL: "/api",
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-// Global response interceptor
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
-    if (!error.response) {
-      error.message = "Network Error"
+  async (error) => {
+    const originalRequest = error.config;
+    console.log(originalRequest.url)
+    const excludedPaths = ["login", "logout", "signup", "forgot-password", "reset-password"];
+
+    if (error.response?.status === 401 && !originalRequest._retry && !excludedPaths.some((path) => originalRequest.url.includes(path))) {
+      originalRequest._retry = true;
+
+      try {
+        const { data } = await api.post("/refresh");
+        originalRequest.headers["Authorization"] = `Bearer ${data.accessToken}`;
+        return api(originalRequest);
+      } catch (refreshError) {
+        return Promise.reject(refreshError);
+      }
     }
+
+    if (!error.response) {
+      return Promise.reject(new Error("Network Error"));
+    }
+    console.log(error);
     return Promise.reject(error);
   }
 );
