@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import InputBox from '@/components/common/inputBox';
 import ErrorBox from '@/components/common/errorBox';
 import { useAuth } from '@/hooks/useAuth';

@@ -2,12 +2,12 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import InputBox from '@/components/common/inputBox';
 import { useAuth } from '@/hooks/useAuth';
 import { Signup } from '@/types/Auth';
 import ErrorBox from '@/components/common/errorBox';
 import Button from '@/components/common/Button';
+import InputPasswordBox from '@/components/common/inputPasswordBox';
 
 const SignupPage = () => {
   const [formData, setFormData] = useState<Signup>({
@@ -86,18 +86,16 @@ const SignupPage = () => {
                 onChange={handleChange}
                 placeHolder="john@example.com"
               />
-              <InputBox
+              <InputPasswordBox
                 label="Password"
-                type="password"
                 name="password"
                 required={true}
                 value={formData.password}
                 onChange={handleChange}
                 placeHolder="Create a password"
               />
-              <InputBox
+              <InputPasswordBox
                 label="Confirm password"
-                type="password"
                 name="confirmPassword"
                 required={true}
                 value={formData.confirmPassword}
