@@ -4,7 +4,6 @@ import { NextResponse } from "next/server"
 
 export async function POST(req: Request) {
   const body = await req.json()
-  console.log("body", body)
   if (body.email === "test@gmail.com" && body.password === "12345678") {
     const accessToken = createAccessToken({ id: "mocked-id", email: "test@gmail.com" });
     const refreshToken = createRefreshToken({ id: "mocked-id", email: "test@gmail.com" });
@@ -26,7 +25,6 @@ export async function POST(req: Request) {
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60,
     });
-    console.log("response", response)
     return response;
 
   } else {

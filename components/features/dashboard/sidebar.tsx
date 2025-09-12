@@ -3,11 +3,12 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useAuth } from '@/hooks/useAuth';
 
 // Sidebar component
 export const Sidebar = ({ isOpen, toggleSidebar }: { isOpen: boolean; toggleSidebar: () => void }) => {
   const pathname = usePathname();
-
+  const { logoutUser } = useAuth()
   const menuItems = [
     {
       name: 'Dashboard',
@@ -159,6 +160,17 @@ export const Sidebar = ({ isOpen, toggleSidebar }: { isOpen: boolean; toggleSide
                   </svg>
                   <span className="ml-3">Contact Support</span>
                 </Link>
+              </li>
+              <li>
+                <button
+                  onClick={logoutUser}
+                  className="flex w-full cursor-pointer items-center p-2 text-base font-normal text-gray-300 rounded-lg transition-colors duration-200 hover:bg-gray-700 hover:text-white group"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                  </svg>
+                  <span className="ml-3">logout</span>
+                </button>
               </li>
             </ul>
           </div>

@@ -37,7 +37,7 @@ const SignupPage = () => {
   return (
     <div className="min-h-screen flex flex-col lg:flex-row">
       {/* Left side - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
+      <div className="w-full lg:w-2/3 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <Link href="/" className="inline-block">
@@ -167,20 +167,22 @@ const SignupPage = () => {
       </div>
 
       {/* Right side - Image */}
-      <div className="hidden lg:block lg:w-1/2 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-green-600 to-teal-600 opacity-90"></div>
-        <Image
-          src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-          alt="Signup visual"
-          fill
-          className="object-cover"
-          priority
+      <div className="hidden lg:block lg:w-3/2 relative">
+        {/* Gradient Background Only */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(135deg, hsla(247,58%,57%,1) 0%, hsla(0,75%,69%,1) 100%)",
+          }}
         />
-        <div className="absolute inset-0 flex items-center justify-center p-12">
-          <div className="text-white text-center">
-            <h2 className="text-4xl font-bold mb-6">Join our community</h2>
+
+        {/* Centered Text Content */}
+        <div className="absolute inset-0 flex top-20 w-full justify-left p-12">
+          <div className="text-white ">
+            <h2 className="text-4xl font-bold mb-6"> Want to join us? </h2>
             <p className="text-xl opacity-90">
-              Get access to exclusive features, resources, and connect with like-minded people.
+              Join our community and enjoy exclusive benefits.
             </p>
           </div>
         </div>

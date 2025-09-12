@@ -101,7 +101,7 @@ const ResetPasswordPage = () => {
 
     <div className="min-h-screen flex">
       {/* Left side - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
+      <div className="w-full lg:w-2/3 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
         <div className="w-full max-w-md">
 
           {
@@ -161,7 +161,7 @@ const ResetPasswordPage = () => {
                     <p className="text-gray-500 text-sm mt-2">
                       Your password must be at least 8 characters long and include a mix of letters, numbers, and special characters.
                     </p>
-                    <Button label="Reset password" loading={loading} disabled={formData.password !== formData.confirmPassword || formData.password === '' || formData.confirmPassword === '' || formData.password.length < 8} />
+                    <Button label="Reset password" type='submit' loading={loading} disabled={formData.password !== formData.confirmPassword || formData.password === '' || formData.confirmPassword === '' || formData.password.length < 8} />
 
                   </form>
 
@@ -183,20 +183,22 @@ const ResetPasswordPage = () => {
       </div>
 
       {/* Right side - Image */}
-      <div className="hidden lg:block lg:w-1/2 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 opacity-90"></div>
-        <Image
-          src="https://images.unsplash.com/photo-1643330683233-ff2ac89b002c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1364&q=80"
-          alt="Reset password visual"
-          fill
-          className="object-cover"
-          priority
+      <div className="hidden lg:block lg:w-3/2 relative">
+        {/* Gradient Background Only */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(135deg, hsla(247,58%,57%,1) 0%, hsla(0,75%,69%,1) 100%)",
+          }}
         />
-        <div className="absolute inset-0 flex items-center justify-center p-12">
-          <div className="text-white text-center">
-            <h2 className="text-4xl font-bold mb-6">Create a secure password</h2>
+
+        {/* Centered Text Content */}
+        <div className="absolute inset-0 flex top-20 justify-left p-12">
+          <div className="text-white ">
+            <h2 className="text-4xl font-bold mb-6">Need help with your password?</h2>
             <p className="text-xl opacity-90">
-              Choose a strong password to keep your account safe and secure.
+              We&apos;ll help you reset it and get back into your account in no time.
             </p>
           </div>
         </div>

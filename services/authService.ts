@@ -33,7 +33,6 @@ const authService = {
     return res.data;
   },
   fetchMe: async (token: string) => {
-    console.log("token check insdie fetch me", token);
     const res = await api.get("/auth/me", {
       headers: { Authorization: `Bearer ${token}` },
     });

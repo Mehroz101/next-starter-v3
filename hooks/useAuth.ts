@@ -19,7 +19,6 @@ export const useAuth = () => {
     mutationFn: authService.login,
     onMutate: () => dispatch(setLoading(true)),
     onSuccess: (data) => {
-      console.log("data", data)
       dispatch(setUser({ token: data.accessToken, user: data.user }))
       router.push("/")
     },
@@ -31,7 +30,6 @@ export const useAuth = () => {
     mutationFn: authService.signup,
     onMutate: () => dispatch(setLoading(true)),
     onSuccess: (data) => {
-      console.log("data", data)
       dispatch(setUser({ token: data.accessToken, user: data.user }));
     },
     onError: (err: any) => {
@@ -90,6 +88,7 @@ export const useAuth = () => {
   const logoutUser = () => {
     dispatch(logout());
     queryClient.removeQueries({ queryKey: ["me"] });
+    router.push("/");
   };
   return { token, user, loading, error, success, isAuthenticated, loginMutation, signupMutation, forgotPasswordMutation, resetPasswordMutation, meQuery: meQueryData, logoutUser };
 

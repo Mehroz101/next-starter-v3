@@ -14,7 +14,6 @@ const REFRESH_TOKEN_SECRET = env.REFRESH_TOKEN_SECRET_KEY;
 
 // 1️⃣ Create Access Token (short-lived, sent in response)
 export function createAccessToken(user: UserPayload) {
-  console.log("user:", user);
   const { id, email } = user;
   return jwt.sign({ id, email }, ACCESS_TOKEN_SECRET, { expiresIn: "15m" }); // 15 minutes
 }

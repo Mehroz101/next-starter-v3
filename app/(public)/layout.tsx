@@ -43,7 +43,7 @@ export default function RootLayout({ children }: { readonly children: React.Reac
     <html lang="en">
       <body className={roboto.className}>
         <Providers>
-          
+
           {/* Navbar stays client if it needs to be; it can be a client component itself */}
           <div className="flex justify-center fixed z-50 top-2.5 w-full">
             <Navbar />

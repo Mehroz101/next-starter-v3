@@ -8,7 +8,6 @@ export async function GET(req: Request) {
     .split("; ")
     .find(c => c.startsWith("refreshToken="))
     ?.split("=")[1];
-  console.log("refreshToken", refreshToken);
   if (!refreshToken) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }

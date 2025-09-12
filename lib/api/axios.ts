@@ -12,7 +12,6 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    console.log(originalRequest.url)
     const excludedPaths = ["login", "logout", "signup", "forgot-password", "reset-password"];
 
     if (error.response?.status === 401 && !originalRequest._retry && !excludedPaths.some((path) => originalRequest.url.includes(path))) {
@@ -30,7 +29,6 @@ api.interceptors.response.use(
     if (!error.response) {
       return Promise.reject(new Error("Network Error"));
     }
-    console.log(error);
     return Promise.reject(error);
   }
 );

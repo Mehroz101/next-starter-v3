@@ -15,7 +15,6 @@ const ForgotPasswordPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle forgot password logic here
     forgotPasswordMutation.mutate({ email: email })
     if (success) {
       setIsSubmitted(true);
@@ -26,7 +25,7 @@ const ForgotPasswordPage = () => {
   if (isSubmitted) {
     return (
       <div className="min-h-screen flex">
-        <div className="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
+        <div className="w-full lg:w-2/3 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
           <div className="w-full max-w-md">
             <div className="text-center mb-8">
               <Link href="/" className="inline-block">
@@ -68,15 +67,25 @@ const ForgotPasswordPage = () => {
           </div>
         </div>
 
-        <div className="hidden lg:block lg:w-1/2 relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 opacity-90"></div>
-          <Image
-            src="https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80"
-            alt="Email visual"
-            fill
-            className="object-cover"
-            priority
+        <div className="hidden lg:block lg:w-3/2 relative">
+          {/* Gradient Background Only */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(135deg, hsla(247,58%,57%,1) 0%, hsla(0,75%,69%,1) 100%)",
+            }}
           />
+
+          {/* Centered Text Content */}
+          <div className="absolute inset-0 flex top-20 justify-left p-12">
+            <div className="text-white ">
+              <h2 className="text-4xl font-bold mb-6">Need help with your password?</h2>
+              <p className="text-xl opacity-90">
+                We&apos;ll help you reset it and get back into your account in no time.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -85,7 +94,7 @@ const ForgotPasswordPage = () => {
   return (
     <div className="min-h-screen flex">
       {/* Left side - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
+      <div className="w-full lg:w-2/3 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <Link href="/" className="inline-block">
@@ -110,7 +119,7 @@ const ForgotPasswordPage = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeHolder="Enter your email"
               />
-              <Button label="Reset password" loading={loading} />
+              <Button label="Reset password" loading={loading} type='submit' />
             </form>
 
             <div className="mt-6 text-center">
@@ -126,17 +135,17 @@ const ForgotPasswordPage = () => {
       </div>
 
       {/* Right side - Image */}
-      <div className="hidden lg:block lg:w-1/2 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 opacity-90"></div>
-        <Image
-          src="https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80"
-          alt="Forgot password visual"
-          fill
-          className="object-cover"
-          priority
+      <div className="hidden lg:block lg:w-3/2 relative">
+        {/* Gradient Background Only */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(135deg, hsla(247,58%,57%,1) 0%, hsla(0,75%,69%,1) 100%)",
+          }}
         />
-        <div className="absolute inset-0 flex items-center justify-center p-12">
-          <div className="text-white text-center">
+        <div className="absolute inset-0 flex top-20 justify-left p-12">
+          <div className="text-white ">
             <h2 className="text-4xl font-bold mb-6">Need help with your password?</h2>
             <p className="text-xl opacity-90">
               We&apos;ll help you reset it and get back into your account in no time.

@@ -16,7 +16,7 @@ export async function POST(req: Request) {
 
   try {
     // 2️⃣ Verify the refresh token (JWT or DB session)
-    const userData = verifyRefreshToken(refreshToken); // throws if invalid
+    const userData = verifyRefreshToken(refreshToken);
 
     // 3️⃣ Issue new access token
     const newAccessToken = createAccessToken(userData);
@@ -30,14 +30,13 @@ export async function POST(req: Request) {
     response.cookies.set("refreshToken", newRefreshToken, {
       httpOnly: true,
       path: "/",
-      secure: process.env.NODE_ENV === "production", // only secure in prod
+      secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60, // 7 days
     });
 
     return response;
-  } catch (err) {
-    console.error("Refresh token verification failed:", err);
+  } catch {
     return NextResponse.json({ message: "Unauthorized" }, { status: 400 });
   }
 }
