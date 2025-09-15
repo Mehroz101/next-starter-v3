@@ -22,15 +22,16 @@ api.interceptors.response.use(
         originalRequest.headers["Authorization"] = `Bearer ${data.accessToken}`;
         localStorage.setItem("accessToken", data.accessToken);
         return api(originalRequest);
-      } catch (refreshError) {
-        return Promise.reject(refreshError);
+      } catch (refreshError: any) {
+        return Promise.reject(new Error(refreshError?.response?.data?.message || "Token refresh failed"));
       }
     }
 
-    if (!error.response) {
+    if (!error.response.data.message) {
       return Promise.reject(new Error("Network Error"));
+
     }
-    return Promise.reject(error);
+    return Promise.reject(new Error(error.response.data.message));
   }
 );
 
