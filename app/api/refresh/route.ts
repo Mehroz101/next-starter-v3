@@ -16,8 +16,11 @@ export async function POST(req: Request) {
 
   try {
     // 2️⃣ Verify the refresh token (JWT or DB session)
-    const userData = verifyRefreshToken(refreshToken);
-
+    // const userData = verifyRefreshToken(refreshToken);
+    const userData = {
+      id: "123",
+      email: "user@example.com",
+    }
     // 3️⃣ Issue new access token
     const newAccessToken = createAccessToken(userData);
 

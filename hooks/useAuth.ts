@@ -20,6 +20,7 @@ export const useAuth = () => {
     onMutate: () => dispatch(setLoading(true)),
     onSuccess: (data) => {
       dispatch(setUser({ token: data.accessToken, user: data.user }))
+      localStorage.setItem("accessToken", data.accessToken);
       router.push("/")
     },
     onError: (error: any) => {
@@ -31,6 +32,8 @@ export const useAuth = () => {
     onMutate: () => dispatch(setLoading(true)),
     onSuccess: (data) => {
       dispatch(setUser({ token: data.accessToken, user: data.user }));
+      localStorage.setItem("accessToken", data.accessToken);
+      router.push("/")
     },
     onError: (err: any) => {
       dispatch(setError(err?.response?.data?.message || err.message));
@@ -64,8 +67,14 @@ export const useAuth = () => {
     queryKey: ["me"],
     queryFn: () => authService.fetchMe(token!),
     enabled: !!token,
-  },
-  );
+  });
+  const logoutUser = () => {
+    dispatch(logout());
+    localStorage.removeItem("accessToken");
+    queryClient.removeQueries({ queryKey: ["me"] });
+    router.push("/");
+  };
+  
   useEffect(() => {
     if (isSuccess) {
       dispatch(setUser({ token, user: meQueryData.user }));
@@ -85,11 +94,7 @@ export const useAuth = () => {
     };
   }, [error, dispatch]);
 
-  const logoutUser = () => {
-    dispatch(logout());
-    queryClient.removeQueries({ queryKey: ["me"] });
-    router.push("/");
-  };
+
   return { token, user, loading, error, success, isAuthenticated, loginMutation, signupMutation, forgotPasswordMutation, resetPasswordMutation, meQuery: meQueryData, logoutUser };
 
 

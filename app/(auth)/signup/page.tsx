@@ -118,7 +118,7 @@ const SignupPage = () => {
                   </Link>
                 </label>
               </div>
-              <Button label="Create Account" loading={loading} />
+              <Button label="Create Account" type='submit' disabled={formData.firstName === '' || formData.lastName === '' || formData.email === '' || formData.password === '' || formData.confirmPassword === '' || formData.password !== formData.confirmPassword || !acceptTerms} loading={loading} />
             </form>
 
             <div className="mt-6">

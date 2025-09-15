@@ -20,6 +20,7 @@ api.interceptors.response.use(
       try {
         const { data } = await api.post("/refresh");
         originalRequest.headers["Authorization"] = `Bearer ${data.accessToken}`;
+        localStorage.setItem("accessToken", data.accessToken);
         return api(originalRequest);
       } catch (refreshError) {
         return Promise.reject(refreshError);

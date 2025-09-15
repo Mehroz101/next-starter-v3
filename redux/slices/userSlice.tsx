@@ -22,7 +22,6 @@ const initialState: UserState = {
 
 }
 
-
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -31,13 +30,11 @@ const userSlice = createSlice({
       state.loading = action.payload;
       state.error = null;
       state.success = false;
-      state.isAuthenticated = false;
     },
     setError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
       state.loading = false;
       state.success = false;
-      state.isAuthenticated = false;
     },
     setUser: (state, action: PayloadAction<{ user: UserState["user"], token: UserState["token"] }>) => {
       state.user = action.payload.user;
@@ -46,9 +43,7 @@ const userSlice = createSlice({
       state.loading = false;
       state.success = true;
       state.isAuthenticated = true;
-      if (action.payload.token) {
-        localStorage.setItem("accessToken", action.payload.token);
-      }
+
     },
     logout: (state) => {
       state.user = null;
@@ -57,7 +52,6 @@ const userSlice = createSlice({
       state.loading = false;
       state.success = true;
       state.isAuthenticated = false;
-      localStorage.removeItem("accessToken");
 
     }
   },

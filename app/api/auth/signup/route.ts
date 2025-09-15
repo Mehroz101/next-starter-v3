@@ -35,7 +35,7 @@ export async function POST(req: Request) {
   }
 
   return NextResponse.json(
-    { message: "Invalid credentials" },
-    { status: 401 }
+    { message: "something wents wrong" },
+    { status: 400 }
   );
 }
