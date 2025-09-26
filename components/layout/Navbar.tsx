@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, hydrated } = useAuth()
 
   return (
     <nav className="w-full flex justify-center px-4 sm:px-6 lg:px-8 fixed top-4 z-50">
@@ -53,12 +53,18 @@ const Navbar: React.FC = () => {
           <div className="hidden sm:flex items-center gap-4 lg:gap-6">
             <NavLink href="/about">About</NavLink>
             <NavLink href="/help">Help</NavLink>
-            {isAuthenticated ? <Link href={"/dashboard"} className={`bg-primary  text-white font-semibold py-2 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2`}>
+            {!hydrated ? (
+              <div className="h-10 w-24 rounded-full bg-gray-200 animate-pulse" />
+            ) : isAuthenticated ? (
+              <Link href={"/dashboard"} className={`bg-primary  text-white font-semibold py-2 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2`}>
               <FaRegUser />
 
               profile
-            </Link> : <Link href="/login" className={`bg-black hover:bg-gray-800 text-white font-semibold py-2 px-6
-               rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl`}>Login</Link>}
+            </Link>
+            ) : (
+              <Link href="/login" className={`bg-black hover:bg-gray-800 text-white font-semibold py-2 px-6
+               rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl`}>Login</Link>
+            )}
           </div>
 
           {/* Get started button visible on mobile */}
@@ -79,9 +85,13 @@ const Navbar: React.FC = () => {
               <MobileNavLink href="/advance" >Advance</MobileNavLink>
               <MobileNavLink href="/about" >About</MobileNavLink>
               <MobileNavLink href="/help" >Help</MobileNavLink>
-              {isAuthenticated ?
+              {!hydrated ? (
+                <div className="h-10 w-full rounded-lg bg-gray-200 animate-pulse" />
+              ) : isAuthenticated ? (
                 <MobileNavLink href="/dashboard" className="bg-primary text-white hover:bg-primary hover:text-white" >Profile</MobileNavLink>
-                : <Link href="/login" className={`bg-black hover:bg-gray-800 text-white font-semibold py-2 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl`}>Login</Link>}
+              ) : (
+                <Link href="/login" className={`bg-black hover:bg-gray-800 text-white font-semibold py-2 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl`}>Login</Link>
+              )}
             </div>
           </div>
         )}
@@ -124,7 +134,7 @@ const MobileNavLink: React.FC<{
 }> = ({ href, children, className }) => (
   <Link
     href={href}
-    className={`text-gray-700 hover:text-black font-semibold py-3 px-4 rounded-lg hover:bg-gray-50 transition-all duration-200 block ${className ?? className}`}
+    className={`text-gray-700 hover:text-black font-semibold py-3 px-4 rounded-lg hover:bg-gray-50 transition-all duration-200 block ${className ?? ""}`}
   >
     {children}
   </Link>

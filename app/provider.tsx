@@ -4,23 +4,26 @@ import React, { useEffect } from "react";
 import { Provider as ReduxProvider, useDispatch } from "react-redux";
 import { store } from "@/redux/store";
 import QueryProvider from "@/query/Provider";
-import { useAuth } from "@/hooks/useAuth";
-import { setUser } from "@/redux/slices/userSlice";
+import { setHydrated, setUser } from "@/redux/slices/userSlice";
 
 // This runs only inside ReduxProvider
 function AuthInitializer() {
-  const { isAuthenticated } = useAuth()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
-
-    const token = localStorage.getItem("accessToken")
-    if (!isAuthenticated && token) {
-      const user = JSON.parse(localStorage.getItem("user") || "{}")
-      dispatch(setUser({ user, token }))
+    try {
+      const token = localStorage.getItem("accessToken");
+      const rawUser = localStorage.getItem("user");
+      if (token && rawUser) {
+        const user = JSON.parse(rawUser);
+        dispatch(setUser({ user, token }));
+      } else {
+        dispatch(setHydrated(true));
+      }
+    } catch {
+      dispatch(setHydrated(true));
     }
-  }, [])
-
-  return null
+  }, [dispatch]);
+  return null;
 }
 
 export default function Providers({ children }: { readonly children: React.ReactNode }) {

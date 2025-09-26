@@ -1,5 +1,5 @@
 "use client";
-import { logout, setError, setLoading, setUser } from "@/redux/slices/userSlice";
+import { logout, setError, setHydrated, setLoading, setUser } from "@/redux/slices/userSlice";
 import { RootState } from "@/redux/store";
 import authService from "@/services/authService";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux"
 export const useAuth = () => {
   const dispatch = useDispatch();
   const router = useRouter()
-  const { token, user, loading, error, success, isAuthenticated } = useSelector((state: RootState) => state.user);
+  const { token, user, loading, error, success, isAuthenticated, hydrated } = useSelector((state: RootState) => state.user);
   const queryClient = useQueryClient();
   let timer: ReturnType<typeof setTimeout>;
 
@@ -21,6 +21,7 @@ export const useAuth = () => {
     onSuccess: (data) => {
       dispatch(setUser({ token: data.accessToken, user: data.user }))
       localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem("user", JSON.stringify(data.user));
       router.push("/")
     },
     onError: (error: any) => {
@@ -33,6 +34,7 @@ export const useAuth = () => {
     onSuccess: (data) => {
       dispatch(setUser({ token: data.accessToken, user: data.user }));
       localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem("user", JSON.stringify(data.user));
       router.push("/")
     },
     onError: (err: any) => {
@@ -65,12 +67,13 @@ export const useAuth = () => {
   });
   const { data: meQueryData, isSuccess } = useQuery({
     queryKey: ["me"],
-    queryFn: () => authService.fetchMe(token!),
+    queryFn: () => authService.fetchMe(),
     enabled: !!token,
   });
   const logoutUser = () => {
     dispatch(logout());
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
     queryClient.removeQueries({ queryKey: ["me"] });
     router.push("/");
   };
@@ -78,8 +81,14 @@ export const useAuth = () => {
   useEffect(() => {
     if (isSuccess) {
       dispatch(setUser({ token, user: meQueryData.user }));
+      localStorage.setItem("user", JSON.stringify(meQueryData.user));
     }
   }, [isSuccess, meQueryData, dispatch, token]);
+
+  useEffect(() => {
+    // Ensure hydrated flag flips even if no token/user
+    dispatch(setHydrated(true));
+  }, [dispatch]);
 
   useEffect(() => {
     if (error) {
@@ -95,7 +104,7 @@ export const useAuth = () => {
   }, [error, dispatch]);
 
 
-  return { token, user, loading, error, success, isAuthenticated, loginMutation, signupMutation, forgotPasswordMutation, resetPasswordMutation, meQuery: meQueryData, logoutUser };
+  return { token, user, loading, error, success, isAuthenticated, hydrated, loginMutation, signupMutation, forgotPasswordMutation, resetPasswordMutation, meQuery: meQueryData, logoutUser };
 
 
 

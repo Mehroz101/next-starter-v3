@@ -32,10 +32,8 @@ const authService = {
     const res = await api.get("/auth/profile");
     return res.data;
   },
-  fetchMe: async (token: string) => {
-    const res = await api.get("/auth/me", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  fetchMe: async () => {
+    const res = await api.get("/auth/me");
     return res.data;
   },
 

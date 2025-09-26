@@ -11,6 +11,7 @@ interface UserState {
   success: boolean;
   error: string | null;
   isAuthenticated: boolean;
+  hydrated: boolean;
 }
 const initialState: UserState = {
   user: null,
@@ -19,6 +20,7 @@ const initialState: UserState = {
   error: null,
   success: false,
   isAuthenticated: false,
+  hydrated: false,
 
 }
 
@@ -45,6 +47,9 @@ const userSlice = createSlice({
       state.isAuthenticated = true;
 
     },
+    setHydrated: (state, action: PayloadAction<boolean>) => {
+      state.hydrated = action.payload;
+    },
     logout: (state) => {
       state.user = null;
       state.token = null;
@@ -52,10 +57,11 @@ const userSlice = createSlice({
       state.loading = false;
       state.success = true;
       state.isAuthenticated = false;
+      state.hydrated = true;
 
     }
   },
 });
 
-export const { setLoading, setError, setUser, logout } = userSlice.actions;
+export const { setLoading, setError, setUser, setHydrated, logout } = userSlice.actions;
 export default userSlice.reducer;

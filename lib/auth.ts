@@ -15,14 +15,14 @@ const REFRESH_TOKEN_SECRET = env.REFRESH_TOKEN_SECRET_KEY;
 // 1️⃣ Create Access Token (short-lived, sent in response)
 export function createAccessToken(user: UserPayload) {
   const { id, email } = user;
-  return jwt.sign({ id, email }, ACCESS_TOKEN_SECRET, { expiresIn: "10s" }); // 1 minutes
+  return jwt.sign({ id, email }, ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
 }
 
 // 2️⃣ Create Refresh Token (long-lived, stored in HttpOnly cookie)
 export function createRefreshToken(user: UserPayload) {
   const { id, email } = user;
 
-  return jwt.sign({ id, email }, REFRESH_TOKEN_SECRET, { expiresIn: "10s" }); // 7 days
+  return jwt.sign({ id, email }, REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
 }
 
 // 3️⃣ Verify Access Token

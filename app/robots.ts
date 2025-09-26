@@ -6,9 +6,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/login", "/register", "/reset-password"],
+        disallow: ["/login", "/signup", "/reset-password", "/forgot-password"],
       },
     ],
-    sitemap: "https://yourbrand.com/sitemap.xml",
+    sitemap: process.env.NEXT_PUBLIC_SITE_URL ? `${process.env.NEXT_PUBLIC_SITE_URL}/sitemap.xml` : undefined,
   };
 }

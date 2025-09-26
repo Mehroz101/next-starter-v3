@@ -14,8 +14,12 @@ const ForgotPasswordPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    forgotPasswordMutation.mutate({ email: email })
-    if (success) {
+    forgotPasswordMutation.mutate(
+      { email },
+      {
+        onSuccess: () => setIsSubmitted(true),
+      }
+    );    if (success) {
       setIsSubmitted(true);
     }
 
